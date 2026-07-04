@@ -17,17 +17,20 @@
   .rule{width:60px;height:1px;background:var(--secondary);margin:1.6rem auto;}
   header p{max-width:620px;margin:0 auto;color:var(--muted);}
   header a{color:var(--secondary);text-decoration:none;font-weight:500;}
-  .grid{max-width:1200px;margin:0 auto;padding:1rem 1.5rem 5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2.5rem;}
+  .campaign{max-width:1200px;margin:0 auto;padding:2.5rem 1.5rem 0;}
+  .campaign h2{font-family:'Cormorant Garamond',serif;font-weight:400;color:var(--primary);font-size:2rem;text-align:center;}
+  .campaign .tag{text-align:center;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--secondary);margin:.2rem 0 1.8rem;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2rem;}
   .card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 8px 32px rgba(78,56,56,.11);display:flex;flex-direction:column;}
   .card .imgwrap{background:var(--dark);display:flex;align-items:center;justify-content:center;padding:1rem;}
   .card img{max-width:100%;height:auto;display:block;border-radius:6px;}
   .card .meta{padding:1.2rem 1.4rem 1.4rem;}
-  .card h3{font-family:'Cormorant Garamond',serif;font-weight:400;color:var(--primary);font-size:1.5rem;}
+  .card h3{font-family:'Cormorant Garamond',serif;font-weight:400;color:var(--primary);font-size:1.4rem;}
   .card .dim{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--secondary);margin:.3rem 0 .8rem;}
   .card .use{color:var(--muted);font-size:.9rem;}
   .card .dl{display:inline-block;margin-top:1rem;padding:.5rem 1.3rem;border:1.5px solid var(--secondary);border-radius:50px;color:var(--secondary);text-decoration:none;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;font-weight:500;transition:all .3s;}
   .card .dl:hover{background:var(--secondary);color:#fff;}
-  footer{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem;border-top:1px solid rgba(78,56,56,.08);}
+  footer{text-align:center;padding:4rem 2rem 2rem;color:var(--muted);font-size:.85rem;}
 </style>
 </head>
 <body>
@@ -35,26 +38,38 @@
     <div class="script">The Wandering Bar</div>
     <div class="sub">Promo Graphics</div>
     <div class="rule"></div>
-    <p>Brand-aware marketing assets for the luxury mobile bar — Kamloops, BC. &nbsp;<a href="https://www.thewanderingbarshuswap.com/">Visit website →</a></p>
+    <p>Six brand-aware campaigns × four formats each, for the luxury mobile bar — Kamloops, BC. &nbsp;<a href="https://www.thewanderingbarshuswap.com/">Visit website →</a></p>
   </header>
-  <main class="grid">
-    <div class="card">
-      <div class="imgwrap"><img src="images/wanderingbar-square-1200.png" alt="Square"></div>
-      <div class="meta"><h3>Square</h3><div class="dim">1200 × 1200</div><div class="use">Facebook Marketplace listing &amp; Instagram feed post.</div><a class="dl" href="images/wanderingbar-square-1200.png" download>Download</a></div>
-    </div>
-    <div class="card">
-      <div class="imgwrap"><img src="images/wanderingbar-story-1080x1920.png" alt="Story"></div>
-      <div class="meta"><h3>Story</h3><div class="dim">1080 × 1920</div><div class="use">Instagram / Facebook Stories &amp; Reels covers.</div><a class="dl" href="images/wanderingbar-story-1080x1920.png" download>Download</a></div>
-    </div>
-    <div class="card">
-      <div class="imgwrap"><img src="images/wanderingbar-banner-1200x675.png" alt="Banner"></div>
-      <div class="meta"><h3>Banner</h3><div class="dim">1200 × 675</div><div class="use">Facebook page cover &amp; shared link previews.</div><a class="dl" href="images/wanderingbar-banner-1200x675.png" download>Download</a></div>
-    </div>
-    <div class="card">
-      <div class="imgwrap"><img src="images/wanderingbar-poster-letter-2550x3300.png" alt="Poster"></div>
-      <div class="meta"><h3>Poster / Flyer</h3><div class="dim">2550 × 3300 · 300 DPI</div><div class="use">Print-ready 8.5 × 11 flyer for venues &amp; expos.</div><a class="dl" href="images/wanderingbar-poster-letter-2550x3300.png" download>Download</a></div>
-    </div>
-  </main>
+  <main id="gallery"></main>
   <footer>www.thewanderingbarshuswap.com &nbsp;·&nbsp; @thewanderingbars</footer>
+<script>
+  const formats = [
+    { key:'square-1200', name:'Square', dim:'1200 × 1200', use:'Facebook Marketplace & Instagram feed.' },
+    { key:'story-1080x1920', name:'Story', dim:'1080 × 1920', use:'IG / FB Stories & Reels covers.' },
+    { key:'banner-1200x675', name:'Banner', dim:'1200 × 675', use:'Facebook cover & link previews.' },
+    { key:'poster-letter-2550x3300', name:'Poster / Flyer', dim:'2550 × 3300 · 300 DPI', use:'Print-ready 8.5 × 11 flyer.' },
+  ];
+  const campaigns = [
+    { id:'brand', title:'Brand', tag:'Luxury that travels to you', legacy:true },
+    { id:'wedding', title:'Weddings', tag:'To love, laughter & happily ever after' },
+    { id:'party', title:'Private Parties', tag:'Bring the bar to the party' },
+    { id:'craft', title:'Craft Cocktails', tag:'Cocktails worth travelling for' },
+    { id:'booking', title:'Now Booking 2026', tag:'Your date won’t wait' },
+    { id:'sips', title:'Zero-Proof & Coffee', tag:'Every guest raises a glass' },
+  ];
+  const file = (c, f) => `images/wanderingbar-${c.legacy ? '' : c.id + '-'}${f.key}.png`;
+  document.getElementById('gallery').innerHTML = campaigns.map(c => `
+    <section class="campaign">
+      <h2>${c.title}</h2>
+      <div class="tag">${c.tag}</div>
+      <div class="grid">
+        ${formats.map(f => `
+        <div class="card">
+          <div class="imgwrap"><img src="${file(c,f)}" alt="${c.title} — ${f.name}" loading="lazy"></div>
+          <div class="meta"><h3>${f.name}</h3><div class="dim">${f.dim}</div><div class="use">${f.use}</div><a class="dl" href="${file(c,f)}" download>Download</a></div>
+        </div>`).join('')}
+      </div>
+    </section>`).join('');
+</script>
 </body>
 </html>
